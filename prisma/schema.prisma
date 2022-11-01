@@ -11,42 +11,42 @@ datasource db {
 }
 
 model Product {
-  id        Int  @id @default(autoincrement())
+  id                Int         @id @default(autoincrement())
   createdAtDateTime DateTime
-  title       String
-  price       Int
-  type        String?
-  description String?
-  published Boolean? @default(false)
-  isDeleted Boolean? @default(false)
-  isFeatured Boolean? @default(false)
-  isBestSeller Boolean? @default(false)
-  isOnSale Boolean? @default(false)
-  isAvaliable Boolean? @default(false)
-  catergories  Catergory[]
-  merchant Merchant @relation(fields: [merchantId], references: [id])
-  merchantId Int
-  brandName   BrandName @relation(fields: [brandNameId], references: [id])
-  brandNameId Int
+  title             String
+  price             Int
+  type              String?
+  description       String?
+  published         Boolean?    @default(false)
+  isDeleted         Boolean?    @default(false)
+  isFeatured        Boolean?    @default(false)
+  isBestSeller      Boolean?    @default(false)
+  isOnSale          Boolean?    @default(false)
+  isAvaliable       Boolean?    @default(false)
+  catergories       Catergory[]
+  merchant          Merchant    @relation(fields: [merchantId], references: [id])
+  merchantId        Int
+  brandName         BrandName   @relation(fields: [brandNameId], references: [id])
+  brandNameId       Int
 }
 
 model Merchant {
-  id        Int  @id @default(autoincrement())
+  id                Int         @id @default(autoincrement())
   createdAtDateTime DateTime
-  title       String
-  location   String?
-  priceRange PriceRange? 
-  products   Product[]
-  events     Event[]
-  orders     Order[]
+  title             String
+  location          String?
+  priceRange        PriceRange?
+  products          Product[]
+  events            Event[]
+  orders            Order[]
 }
 
 model BrandName {
-  id        Int  @id @default(autoincrement())
+  id                Int         @id @default(autoincrement())
   createdAtDateTime DateTime
-  title       String
-  catergories  Catergory[]
-  products   Product[]
+  title             String
+  catergories       Catergory[]
+  products          Product[]
 }
 
 enum Catergory {
@@ -75,52 +75,50 @@ enum PriceRange {
   EXPENSIVE
 }
 
-
-
 model Event {
-  id        Int  @id @default(autoincrement())
-  createdAtDateTime DateTime @default(now())
-  location   String?
-  title       String
-  startDateTime DateTime
-  endDateTime DateTime
-  merchants Merchant[]
+  id                Int        @id @default(autoincrement())
+  createdAtDateTime DateTime   @default(now())
+  location          String?
+  title             String
+  startDateTime     DateTime
+  endDateTime       DateTime
+  merchants         Merchant[]
 }
 
 model User {
-  id        Int  @id @default(autoincrement())
+  id                Int      @id @default(autoincrement())
   createdAtDateTime DateTime @default(now())
-  email       String @unique
-  password    String
-  role    Role  @default(USER)
-  profile Profile?
-  orders Order[]
+  email             String   @unique
+  password          String
+  role              Role     @default(USER)
+  profile           Profile?
+  orders            Order[]
 }
 
 model Order {
-  id        Int  @id @default(autoincrement())
+  id                Int      @id @default(autoincrement())
   createdAtDateTime DateTime
-  isPaid    Boolean @default(false)
-  isProcessed Boolean @default(false)
-  isCompleted    Boolean @default(false)
+  isPaid            Boolean  @default(false)
+  isProcessed       Boolean  @default(false)
+  isCompleted       Boolean  @default(false)
   // @alias isDelievered
-  isCollected Boolean @default(false)
-  isCancelled Boolean @default(false)
-  isError  Boolean @default(false)
-  timeToCollected Int
-  user  User  @relation(fields: [userId], references: [id])
-  userId Int
-  merchant  Merchant  @relation(fields: [merchantId], references: [id])
-  merchantId Int
+  isCollected       Boolean  @default(false)
+  isCancelled       Boolean  @default(false)
+  isError           Boolean  @default(false)
+  timeToCollected   Int
+  user              User     @relation(fields: [userId], references: [id])
+  userId            Int
+  merchant          Merchant @relation(fields: [merchantId], references: [id])
+  merchantId        Int
 }
 
 model Profile {
-  id     Int    @id @default(autoincrement())
+  id     Int       @id @default(autoincrement())
   bio    String
   dob    DateTime?
-  gender  String?
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+  gender String?
+  user   User      @relation(fields: [userId], references: [id])
+  userId Int       @unique
 }
 
 enum Role {
